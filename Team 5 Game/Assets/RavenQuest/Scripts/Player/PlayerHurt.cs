@@ -51,7 +51,7 @@ public class PlayerHurt : MonoBehaviour
                    body.AddForce(knockBack*Vector2.right,ForceMode2D.Impulse);
                }
                  
-            Debug.Log("Health is " + playerScript.currHealth);
+            Debug.Log("Health is " + playerScript.modifyHealth());
             if (health<=0) //If the player goes over the health ammount they lose
             {
                 PlayerLose();

@@ -17,16 +17,16 @@ public class ButtonStrike : MonoBehaviour
 
     // Update is called once per frame
   
-    public void OnButtonPress()
+   /* public void OnButtonPress()
     {
        Attack();
     }
-
-    void Attack()
+    */
+  /*  void Attack()
     {
         // Play Attack Animation 
         // strik.SetTrigger("Strike");
-       Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position,attackRange,enemyLayers);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position,attackRange,enemyLayers);
         // For all overlaps between position located at attackRange, retrieve this collider ID
 
         foreach(Collider2D enemy in hitEnemies)
@@ -34,13 +34,14 @@ public class ButtonStrike : MonoBehaviour
             Debug.Log("Hi");
         }
 
-    }
+    }*/
 }
-
+/*
 void OnDrawGizmosSelected()
 {
      // Shows visible representation of attackRange
       if (attackPoint == null)
         return;
-    Gizmo.DrawWireSphere(attackPoint.position, attackRange);
+   // Gizmo.DrawWireSphere(attackPoint.position, attackRange);
 }
+*/
