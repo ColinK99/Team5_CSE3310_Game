@@ -9,6 +9,9 @@ TagManager:
   - MoveStick
   - Enemy
   - Fire
+  - Damage
+  - OutOfBounds
+  - AutoRespawn
   layers:
   - Default
   - TransparentFX
@@ -20,7 +23,7 @@ TagManager:
   - 
   - Platforms
   - Enemy
-  - 
+  - Damage
   - 
   - 
   - 

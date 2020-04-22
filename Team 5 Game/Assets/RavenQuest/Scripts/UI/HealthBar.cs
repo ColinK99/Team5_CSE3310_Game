@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     private Slider slider;
+  
     void Start()
     {
         slider = GetComponent<Slider>();
@@ -19,5 +20,9 @@ public class HealthBar : MonoBehaviour
     public void SetHealth(int health)
     {
         slider.value = health;
+    }
+    void healthNum()
+    {
+        // TO DO: Implement changing num values for health.
     }
 }

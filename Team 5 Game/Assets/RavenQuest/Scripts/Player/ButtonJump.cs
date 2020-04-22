@@ -8,14 +8,15 @@ public class ButtonJump : MonoBehaviour
     private Rigidbody2D playerBody;
     private Transform playerPos;
     private Collider2D playerFeet;
-    public Animator jump;
+   // public Animator jump;
     public LayerMask platform;
+    public float touchDistance;
     private float groundDist;
 
     PlayerStats playerStats;
     
     // Update is called once per frame
-    void Awake()
+    void Start()
     {
         playerStats = GetComponent<PlayerStats>();
         playerFeet = GetComponent<Collider2D>();
@@ -32,12 +33,13 @@ public class ButtonJump : MonoBehaviour
             playerBody.velocity = (Vector2.up * (playerStats.jumpHeight));
 
         }
+  
     }
 
    bool isGrounded()
     {
         //jump.SetTrigger("Jump");
-        return Physics2D.Raycast(playerPos.position, -Vector2.up, groundDist + 0.1f,platform);
+        return Physics2D.Raycast(playerPos.position, -Vector2.up, groundDist + touchDistance,platform);
         // Cast a ray downwards from the players center, if it hits any collider. within a distance of 0.1 then the player is grounded
     }
 
