@@ -9,6 +9,7 @@ public class PlayerMove : MonoBehaviour
     private FixedJoystick moveStick;
     private Collider2D playerCollide;
     private Transform tempRespawn;
+    public Collider2D enemyBox;
     PlayerStats player;
     
 
@@ -24,7 +25,7 @@ public class PlayerMove : MonoBehaviour
     {
         Vector2 characterPos = transform.localScale;
         body.velocity = new Vector2(moveStick.Horizontal * player.speed, body.velocity.y);
-
+      
         if(moveStick.Horizontal<0)
         {
             characterPos.x = 1;
@@ -38,6 +39,7 @@ public class PlayerMove : MonoBehaviour
 
 
     }
+
 
 
 }

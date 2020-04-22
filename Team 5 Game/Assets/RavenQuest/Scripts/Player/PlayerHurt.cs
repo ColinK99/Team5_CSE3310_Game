@@ -12,14 +12,14 @@ public class PlayerHurt : MonoBehaviour
     public GameObject enemy;
     public GameObject Damage;
     //public GameObject player;
-  
+
 
 
     /* These values should be stored in some sort of "EnemyStats" 
      * script for easy access
      */
-    public int enemyDmg;  //Delete later
-    public int knockBack; //Delete Later
+    private EnemyStats enemyStats;  //Delete later
+    //Delete Later
 
     // Update is called once per frame
     void Start()
@@ -28,46 +28,16 @@ public class PlayerHurt : MonoBehaviour
         playerScript = GetComponent<PlayerStats>();
         spawnPoint = GameObject.FindWithTag("Respawn").GetComponent<Respawn>();
         tempPoint = GameObject.FindWithTag("AutoRespawn").GetComponent<AutoRespawn>();
+     //   enemyStats = GameObject.FindWithTag("Enemy").GetComponent<EnemyStats>();
         // enemy = GameObject.FindWithTag("Enemy");
        //  player = GameObject.FindWithTag("Player");
     }
     void OnTriggerEnter2D(Collider2D target)
     {
-        int health;
-        if (target.tag == enemy.tag)
-        {
-            // Play hurt animation
-            health = playerScript.modifyHealth(enemyDmg);
-            // Health change is determined by protected values within PlayerStats
-
-            /*
-             *  Determines knockback direction and value for player along with invunerability
-             *  timer so the player has time to recover
-             *  NOTE: CURRENTLY DOES NOT WORK
-             *  */
-            if (playerZero(health))
-            {
-                PlayerLose();
-            }
-            else
-            {
-                if (enemy.transform.position.x > transform.position.x) // If the enemy is to the right of the player
-                {
-                    body.AddForce(knockBack * Vector2.left, ForceMode2D.Impulse);
-                    // Move the player back by the enemy's knockback value in the opposite direction
-                }
-                else //The enemy is hitting from the left
-                {
-                    body.AddForce(knockBack * Vector2.right, ForceMode2D.Impulse);
-                }
-            }
-
-        }
-        else if (target.tag == Damage.tag)
+         if (target.tag == Damage.tag)
         {
             // Get the stats of that specific object in (Damage) script
-            health = playerScript.modifyHealth(fallDamage);
-            if (playerZero(health)) //If the player goes over the health ammount they lose
+            if (playerZero(playerScript.modifyHealth(fallDamage))) //If the player goes over the health ammount they lose
             {
                 PlayerLose();
             }
@@ -76,6 +46,33 @@ public class PlayerHurt : MonoBehaviour
                 
                 tempPoint.Respawn();
 
+            }
+        }
+    }
+
+    public void playerHit(int attack, float knockBack)
+    {
+        // Health change is determined by protected values within PlayerStats
+
+        /*
+         *  Determines knockback direction and value for player along with invunerability
+         *  timer so the player has time to recover
+         *  NOTE: CURRENTLY DOES NOT WORK
+         *  */
+        if (playerZero(playerScript.modifyHealth(attack)))
+        {
+            PlayerLose();
+        }
+        else
+        {
+            if (enemy.transform.position.x > transform.position.x) // If the enemy is to the right of the player
+            {
+                body.AddForce(knockBack * Vector2.left, ForceMode2D.Impulse);
+                // Move the player back by the enemy's knockback value in the opposite direction
+            }
+            else //The enemy is hitting from the left
+            {
+                body.AddForce(knockBack * Vector2.right, ForceMode2D.Impulse);
             }
         }
     }

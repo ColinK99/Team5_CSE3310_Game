@@ -9,7 +9,7 @@ public class PlayerStats : MonoBehaviour
     private int healthMax = 10;
     public int attack = 5;
     private int level = 1;
-    public int speed = 3;
+    public float speed = 3;
     public int jumpHeight = 10;
     public int knockBack = 2;
     public float attackRange = 0.3f;
@@ -84,5 +84,7 @@ public class PlayerStats : MonoBehaviour
     {
 
     }
+
+
 
 }

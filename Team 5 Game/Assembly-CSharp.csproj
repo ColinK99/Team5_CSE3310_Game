@@ -62,6 +62,8 @@
      <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
      <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
      <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
+     <Compile Include="Assets\RavenQuest\Scripts\Enemy\EnemyScript.cs" />
+     <Compile Include="Assets\RavenQuest\Scripts\Enemy\EnemyStats.cs" />
      <Compile Include="Assets\RavenQuest\Scripts\Environment\AutoRespawn.cs" />
      <Compile Include="Assets\RavenQuest\Scripts\Environment\CameraFollow.cs" />
      <Compile Include="Assets\RavenQuest\Scripts\Environment\Respawn.cs" />
