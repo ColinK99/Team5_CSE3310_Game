@@ -11,6 +11,7 @@ public class PlayerHurt : MonoBehaviour
     private Rigidbody2D body;
     public GameObject enemy;
     public GameObject Damage;
+    private SpriteRenderer sprite;
     //public GameObject player;
 
 
@@ -28,6 +29,7 @@ public class PlayerHurt : MonoBehaviour
         playerScript = GetComponent<PlayerStats>();
         spawnPoint = GameObject.FindWithTag("Respawn").GetComponent<Respawn>();
         tempPoint = GameObject.FindWithTag("AutoRespawn").GetComponent<AutoRespawn>();
+        sprite = GetComponent<SpriteRenderer>();
      //   enemyStats = GameObject.FindWithTag("Enemy").GetComponent<EnemyStats>();
         // enemy = GameObject.FindWithTag("Enemy");
        //  player = GameObject.FindWithTag("Player");
@@ -65,15 +67,19 @@ public class PlayerHurt : MonoBehaviour
         }
         else
         {
-            if (enemy.transform.position.x > transform.position.x) // If the enemy is to the right of the player
+           /* if (enemy.transform.position.x > transform.position.x) // If the enemy is to the right of the player
             {
-                body.AddForce(knockBack * Vector2.left, ForceMode2D.Impulse);
+                body.AddForce(5*knockBack * Vector2.left, ForceMode2D.Impulse);
                 // Move the player back by the enemy's knockback value in the opposite direction
             }
             else //The enemy is hitting from the left
             {
-                body.AddForce(knockBack * Vector2.right, ForceMode2D.Impulse);
+                body.AddForce(5*knockBack * Vector2.right,ForceMode2D.Impulse);
             }
+            */
+            sprite.color = Color.red;
+            StartCoroutine(Invincible());
+
         }
     }
     void PlayerLose()
@@ -103,6 +109,16 @@ public class PlayerHurt : MonoBehaviour
         {
             return false;
         }
+    }
+
+
+    IEnumerator Invincible()
+    {
+        playerScript.Invincible = true;
+        yield return new WaitForSeconds(3);
+        sprite.color = Color.white;
+        playerScript.Invincible = false;
+        
     }
 
 }

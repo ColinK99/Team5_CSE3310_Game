@@ -770,7 +770,7 @@ GameObject:
   - component: {fileID: 391429686}
   - component: {fileID: 391429682}
   - component: {fileID: 391429688}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1007,7 +1007,9 @@ MonoBehaviour:
   speed: 5
   jumpHeight: 10
   knockBack: 2
-  attackRange: 0.75
+  attackRange: 0.72
+  cooldown: 0.5
+  Invincible: 0
 --- !u!114 &391429690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1040,6 +1042,7 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 512
+  attackRange: 0.3
 --- !u!1 &492942074
 GameObject:
   m_ObjectHideFlags: 0
@@ -2393,7 +2396,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1300910346}
   m_Layer: 9
-  m_Name: AttackPoint
+  m_Name: EnemyAttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2407,7 +2410,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1300910345}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.039, y: -0.037, z: 0}
+  m_LocalPosition: {x: 0.042, y: -0.036, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2014887035}
@@ -2489,7 +2492,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1466830321}
   m_Layer: 0
-  m_Name: AttackPoint
+  m_Name: PlayerAttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2747,7 +2750,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0028781444, y: -0.0041307136}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2758,7 +2761,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.24, y: 0.32}
+  m_Size: {x: 0.23424372, y: 0.31173855}
   m_EdgeRadius: 0
 --- !u!212 &2014887034
 SpriteRenderer:
@@ -2801,7 +2804,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5e301bbca61a1b549a337557f5656cf2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.24, y: 0.32}
@@ -2818,8 +2821,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2014887031}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.236, y: -0.045, z: 0}
-  m_LocalScale: {x: 3.0906, y: 3.0906, z: 1.0302}
+  m_LocalPosition: {x: -0.87, y: -0.11, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 1300910346}
   m_Father: {fileID: 0}
@@ -2837,15 +2840,15 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 20
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
-  m_GravityScale: 1
+  m_GravityScale: 4
   m_Material: {fileID: 6200000, guid: 3b63d83243ab280438370cd4b0218fdd, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 4
 --- !u!114 &2014887037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2858,12 +2861,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 194752e731378484bb82160b7d8ca02c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 5
-  aggroRange: 3
-  stopRange: 0.5
+  attack: 1
+  aggroRange: 5
+  stopRange: 0.75
   attackRange: 0.3
-  knockBack: 0
+  knockBack: 5
   moveSpeed: 2
+  cooldown: 1
 --- !u!114 &2014887038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2878,6 +2882,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 1300910346}
   drop: {fileID: 0}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  attackRange: 0.4
 --- !u!1 &2035579260
 GameObject:
   m_ObjectHideFlags: 0

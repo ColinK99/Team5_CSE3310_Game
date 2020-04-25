@@ -16,6 +16,8 @@ public class PlayerStats : MonoBehaviour
     private int nextLevel = 100;
     private int currXP = 0;
     private int currHealth = 10;
+    public float cooldown = 0.5f;
+    public bool Invincible = false;
     
 
     void Start()

@@ -9,11 +9,13 @@ public class ButtonStrike : MonoBehaviour
     public LayerMask enemyLayers;
     private EnemyScript enemyHurt;
     private PlayerStats stats;
+    public float attackRange;
 
 
     // Start is called before the first frame update
     void Start()
     {
+
         stats = GetComponent<PlayerStats>();
         enemyHurt = GameObject.FindWithTag("Enemy").GetComponent<EnemyScript>();
     }
@@ -30,17 +32,27 @@ public class ButtonStrike : MonoBehaviour
     {
         // Play Attack Animation 
         // strike.SetTrigger("Strike");
-      Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position,stats.attackRange,enemyLayers);
+      Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position,attackRange,enemyLayers);
         // For all overlaps between position located at attackRange, retrieve this collider ID
 
       foreach(Collider2D enemy in hitEnemies)
       {
             enemyHurt.enemyHit(stats.attack,stats.knockBack);
-            Debug.Log("Enemy " + enemy.name + "Hit");
+            StartCoroutine(Cooldown(stats.cooldown));
       }
 
     }
 
+    void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null)
+            return;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
 
+    IEnumerator Cooldown(float cooldown)
+    {
+        yield return new WaitForSeconds(cooldown);
+    }
 
 }

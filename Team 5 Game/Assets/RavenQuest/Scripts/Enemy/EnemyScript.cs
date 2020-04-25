@@ -14,6 +14,7 @@ public class EnemyScript : MonoBehaviour
     //to select the player you need to drag the player object into the field
     //this will be used so the enemy can check their distance to the player
     private Transform player;
+    public LayerMask playerLayer;
     
     //this next object is the hitbox of the players weapon. to set this you need to drag the AttackBox object under player 
     //into this field under an enemy with this script
@@ -28,9 +29,12 @@ public class EnemyScript : MonoBehaviour
     private SpriteRenderer bar;
     //Thisd will be used to set animation booleans
     private Animator anim;
+    public float attackRange;
     private PlayerStats playerHealth;
     private PlayerHurt hurt;
+    private bool playerStatus;
     int health;
+    private IEnumerator enemyCooldown;
 
 
 
@@ -61,17 +65,20 @@ public class EnemyScript : MonoBehaviour
         {
             //anim.SetBool("Attack", false);
             //anim.SetBool("canWalk", true);
-            ChasePlayer();
+             ChasePlayer();
+
+        }
+        else if(distToPlayer <= enemy.stopRange)
+        {
+            rb2d.velocity = new Vector2(0, 0);
+            enemyCooldown = Cooldown(enemy.cooldown);
+            StartCoroutine(enemyCooldown);
+            
+       
+ 
         }
         //if the enemy is close enough to the player the enemy will stop moving and walk animation
         //then the enemy will start the attack animation
-        else if (distToPlayer <= enemy.stopRange)
-        {
-            rb2d.velocity = new Vector2(0, 0);
-            // anim.SetBool("canWalk", false);
-            // anim.SetBool("Attack", true);
-            attackPlayer();
-        }
         //else the character is not within range for the enemy to do anything so it will set both attack and walk animations to false
         //which should trigger the idle animation the start again
         else
@@ -91,6 +98,7 @@ public class EnemyScript : MonoBehaviour
         //if the enemy health drops to 0 or below then it will be destroyed
         if (health <= 0)
         {
+            StopCoroutine(enemyCooldown);
             Destroy(gameObject);
         }
 
@@ -109,7 +117,6 @@ public class EnemyScript : MonoBehaviour
     public void enemyHit(int playerDamage, int playerKnockback)
     {
         health=enemy.modifyHealth(playerDamage);
-        Debug.Log("Damaage Taken");
         
        
     }
@@ -122,27 +129,43 @@ public class EnemyScript : MonoBehaviour
         if (transform.position.x < player.position.x)
         {
             rb2d.velocity = new Vector2(enemy.moveSpeed, 0);
-            transform.localScale = new Vector2(1, 0);
+            transform.localScale = new Vector2(3, 3);
         }
         //Else the player is to the left so the enemy movement should be negative
         //and the sprite should be flipped to face the left
         else
         {
             rb2d.velocity = new Vector2(enemy.moveSpeed*-1, 0);
-            transform.localScale = new Vector2(-1, 0);
+            transform.localScale = new Vector2(-3, 3);
         }
     }
 
     void attackPlayer()
     {
-        Collider2D hitPlayer = Physics2D.OverlapCircle(attackPoint.position, enemy.attackRange);
-
-        if(hitPlayer.tag == GameObject.FindWithTag("Player").tag)
+        Collider2D hitPlayer = Physics2D.OverlapCircle(attackPoint.position, attackRange,playerLayer);
+        if (hitPlayer == null)
+            return;
+        if (hitPlayer.tag == GameObject.FindWithTag("Player").GetComponent<Collider2D>().tag && playerHealth.Invincible==false)
         {
+
             hurt.playerHit(enemy.attack, enemy.knockBack);
         }
+
+
     }
 
+    void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null)
+            return;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+
+    IEnumerator Cooldown(float cooldown)
+    {
+        yield return new WaitForSeconds(cooldown);
+        attackPlayer();
+    }
 
 }
 
