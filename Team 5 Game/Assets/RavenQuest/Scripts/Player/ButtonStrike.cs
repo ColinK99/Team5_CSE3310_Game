@@ -37,7 +37,7 @@ public class ButtonStrike : MonoBehaviour
 
       foreach(Collider2D enemy in hitEnemies)
       {
-            enemyHurt.enemyHit(stats.attack,stats.knockBack);
+            enemyHurt.enemyHit(stats.attack);
             StartCoroutine(Cooldown(stats.cooldown));
       }
 

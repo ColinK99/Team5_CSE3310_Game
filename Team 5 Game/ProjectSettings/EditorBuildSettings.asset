@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/RavenQuest/Scenes/Main Menu.unity
+    guid: 2ae6db04556b2f54b8ca86abee3d1357
+  - enabled: 1
+    path: Assets/RavenQuest/Scenes/Main Scene.unity
+    guid: b12233e1f8f411547a7c01cf114fa1d5
+  - enabled: 1
+    path: Assets/RavenQuest/Scenes/Game Over.unity
+    guid: 30a9701f326142147ba4c426701351bb
   m_configObjects: {}

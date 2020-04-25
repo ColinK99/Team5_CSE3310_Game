@@ -28,11 +28,10 @@ public class EnemyScript : MonoBehaviour
     //This will be used to set the color of the enemy to red when health is low
     private SpriteRenderer bar;
     //Thisd will be used to set animation booleans
-    private Animator anim;
+    public Animator anim;
     public float attackRange;
     private PlayerStats playerHealth;
     private PlayerHurt hurt;
-    private bool playerStatus;
     int health;
     private IEnumerator enemyCooldown;
 
@@ -63,14 +62,16 @@ public class EnemyScript : MonoBehaviour
         //to set the enemy movement variables
         if ((distToPlayer < enemy.aggroRange) && (distToPlayer > enemy.stopRange))
         {
-            //anim.SetBool("Attack", false);
-            //anim.SetBool("canWalk", true);
+             anim.SetBool("Attack", false);
+             anim.SetBool("canWalk", true);
              ChasePlayer();
 
         }
         else if(distToPlayer <= enemy.stopRange)
         {
             rb2d.velocity = new Vector2(0, 0);
+            anim.SetBool("canWalk", false);
+            anim.SetBool("Attack", true);
             enemyCooldown = Cooldown(enemy.cooldown);
             StartCoroutine(enemyCooldown);
             
@@ -84,8 +85,8 @@ public class EnemyScript : MonoBehaviour
         else
         {
             rb2d.velocity = new Vector2(0, 0);
-           // anim.SetBool("canWalk", false);
-            //anim.SetBool("Attack", false);
+            anim.SetBool("canWalk", false);
+            anim.SetBool("Attack", false);
         }
 
 
@@ -99,6 +100,7 @@ public class EnemyScript : MonoBehaviour
         if (health <= 0)
         {
             StopCoroutine(enemyCooldown);
+            Instantiate(drop, transform.position, drop.transform.rotation);
             Destroy(gameObject);
         }
 
@@ -106,15 +108,8 @@ public class EnemyScript : MonoBehaviour
     }
 
 
-  /*  private void OnDestroy() //called, when enemy will be destroyed
-    {
-        Instantiate(drop, transform.position, drop.transform.rotation); //your dropped sword
-    }*/
-
-
-
     //This function will determine if the enemy has been hit by an attack
-    public void enemyHit(int playerDamage, int playerKnockback)
+    public void enemyHit(int playerDamage)
     {
         health=enemy.modifyHealth(playerDamage);
         
@@ -148,7 +143,7 @@ public class EnemyScript : MonoBehaviour
         if (hitPlayer.tag == GameObject.FindWithTag("Player").GetComponent<Collider2D>().tag && playerHealth.Invincible==false)
         {
 
-            hurt.playerHit(enemy.attack, enemy.knockBack);
+            hurt.playerHit(enemy.attack);
         }
 
 

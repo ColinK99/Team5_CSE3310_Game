@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHurt : MonoBehaviour
 {
@@ -12,15 +13,6 @@ public class PlayerHurt : MonoBehaviour
     public GameObject enemy;
     public GameObject Damage;
     private SpriteRenderer sprite;
-    //public GameObject player;
-
-
-
-    /* These values should be stored in some sort of "EnemyStats" 
-     * script for easy access
-     */
-    private EnemyStats enemyStats;  //Delete later
-    //Delete Later
 
     // Update is called once per frame
     void Start()
@@ -30,9 +22,7 @@ public class PlayerHurt : MonoBehaviour
         spawnPoint = GameObject.FindWithTag("Respawn").GetComponent<Respawn>();
         tempPoint = GameObject.FindWithTag("AutoRespawn").GetComponent<AutoRespawn>();
         sprite = GetComponent<SpriteRenderer>();
-     //   enemyStats = GameObject.FindWithTag("Enemy").GetComponent<EnemyStats>();
-        // enemy = GameObject.FindWithTag("Enemy");
-       //  player = GameObject.FindWithTag("Player");
+
     }
     void OnTriggerEnter2D(Collider2D target)
     {
@@ -52,31 +42,17 @@ public class PlayerHurt : MonoBehaviour
         }
     }
 
-    public void playerHit(int attack, float knockBack)
+    public void playerHit(int attack)
     {
         // Health change is determined by protected values within PlayerStats
 
-        /*
-         *  Determines knockback direction and value for player along with invunerability
-         *  timer so the player has time to recover
-         *  NOTE: CURRENTLY DOES NOT WORK
-         *  */
         if (playerZero(playerScript.modifyHealth(attack)))
         {
             PlayerLose();
         }
         else
         {
-           /* if (enemy.transform.position.x > transform.position.x) // If the enemy is to the right of the player
-            {
-                body.AddForce(5*knockBack * Vector2.left, ForceMode2D.Impulse);
-                // Move the player back by the enemy's knockback value in the opposite direction
-            }
-            else //The enemy is hitting from the left
-            {
-                body.AddForce(5*knockBack * Vector2.right,ForceMode2D.Impulse);
-            }
-            */
+
             sprite.color = Color.red;
             StartCoroutine(Invincible());
 
@@ -85,17 +61,10 @@ public class PlayerHurt : MonoBehaviour
     void PlayerLose()
     {
         //Play Defeat animation
-     //   GetComponent<Renderer>().enabled = false; //Make player disappear when they "die"
+        //   GetComponent<Renderer>().enabled = false; //Make player disappear when they "die"
 
         // Display GameOver Screen
-
-        //if(Continue())
-       
-        spawnPoint.Spawn(); // Respawn invisible player back to the beginning
-        playerScript.resetHealth();// Reset their health
-      //  GetComponent<Renderer>().enabled = true;// Then make them reappear and hand over controls to player
-        // Else 
-        // ExitToMenu
+        GameOverMainMenu();
 
     }
 
@@ -119,6 +88,17 @@ public class PlayerHurt : MonoBehaviour
         sprite.color = Color.white;
         playerScript.Invincible = false;
         
+    }
+    public void GameOverMainMenu()
+    {
+        SceneManager.LoadScene("Game Over", LoadSceneMode.Single);
+
+        spawnPoint.Spawn(); // Respawn invisible player back to the beginning
+        playerScript.resetHealth();// Reset their health
+    }
+    public void PlayGame()
+    {
+        SceneManager.LoadScene("Main Scene", LoadSceneMode.Single);
     }
 
 }
