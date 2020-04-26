@@ -17,5 +17,6 @@ public class CameraFollow : MonoBehaviour
         //Sets the Main Camera to follow the player
         //can add or subract values from POS.x and POS.y to position it differently around character
         GameObject.Find("Main Camera").transform.position = new Vector3(PlayerPOS.x, PlayerPOS.y + overview, PlayerPOS.z - distance);
+        GameObject.FindWithTag("Background").transform.position = new Vector3(transform.position.x, transform.position.y, 1);
     }
 }

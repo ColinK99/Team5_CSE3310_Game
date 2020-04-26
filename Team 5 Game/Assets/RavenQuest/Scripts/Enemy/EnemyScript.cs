@@ -60,7 +60,7 @@ public class EnemyScript : MonoBehaviour
         //if player is within the aggro range but also not close enough to attack then 
         //walk animation needs to be set to true and the chaseplayer function will be called
         //to set the enemy movement variables
-        if ((distToPlayer < enemy.aggroRange) && (distToPlayer > enemy.stopRange))
+        if ((distToPlayer < enemy.aggroRange) && (distToPlayer > enemy.stopRange) && Mathf.Abs(transform.position.x - player.position.x) >= .1)
         {
              anim.SetBool("Attack", false);
              anim.SetBool("canWalk", true);

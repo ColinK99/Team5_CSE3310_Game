@@ -12,6 +12,7 @@ TagManager:
   - Damage
   - OutOfBounds
   - AutoRespawn
+  - Background
   layers:
   - Default
   - TransparentFX
