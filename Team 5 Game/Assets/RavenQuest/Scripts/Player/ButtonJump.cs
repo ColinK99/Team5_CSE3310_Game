@@ -30,6 +30,7 @@ public class ButtonJump : MonoBehaviour
         if(isGrounded())
         {
             // Change the rigidbody velocity by the players jump height * 1
+            SoundManager.PlaySound("playerJump");
             playerBody.velocity = (Vector2.up * (playerStats.jumpHeight));
 
         }

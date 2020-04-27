@@ -13,6 +13,7 @@ public class healthPotion : MonoBehaviour
         if (target.tag == player.tag)
         {
             playerStats.modifyHealth(-1 * potionValue);
+            SoundManager.PlaySound("healthGiven");
             Destroy(gameObject);
         }
     }

@@ -33,7 +33,7 @@ public class EnemyScript : MonoBehaviour
     private PlayerStats playerHealth;
     private PlayerHurt hurt;
     int health;
-    private IEnumerator enemyCooldown;
+    private float cooldownTime;
 
 
 
@@ -48,6 +48,8 @@ public class EnemyScript : MonoBehaviour
         enemy = GetComponent<EnemyStats>();
         health = enemy.modifyHealth();
         hurt = GameObject.FindWithTag("Player").GetComponent<PlayerHurt>();
+        cooldownTime = enemy.cooldown;
+ 
 
     }
 
@@ -71,12 +73,20 @@ public class EnemyScript : MonoBehaviour
         {
             rb2d.velocity = new Vector2(0, 0);
             anim.SetBool("canWalk", false);
-            anim.SetBool("Attack", true);
-            enemyCooldown = Cooldown(enemy.cooldown);
-            StartCoroutine(enemyCooldown);
-            
-       
- 
+            if (cooldownTime > 0)
+            {
+                cooldownTime -= Time.deltaTime;
+            }
+            else if (cooldownTime <= 0)
+            {
+                anim.SetBool("Attack", true);
+                attackPlayer();
+                cooldownTime = enemy.cooldown;
+            }
+
+
+
+
         }
         //if the enemy is close enough to the player the enemy will stop moving and walk animation
         //then the enemy will start the attack animation
@@ -99,7 +109,6 @@ public class EnemyScript : MonoBehaviour
         //if the enemy health drops to 0 or below then it will be destroyed
         if (health <= 0)
         {
-            StopCoroutine(enemyCooldown);
             Instantiate(drop, transform.position, drop.transform.rotation);
             Destroy(gameObject);
         }
@@ -111,6 +120,7 @@ public class EnemyScript : MonoBehaviour
     //This function will determine if the enemy has been hit by an attack
     public void enemyHit(int playerDamage)
     {
+        SoundManager.PlaySound("enemyHit");
         health=enemy.modifyHealth(playerDamage);
         
        
@@ -137,6 +147,7 @@ public class EnemyScript : MonoBehaviour
 
     void attackPlayer()
     {
+        SoundManager.PlaySound("enemyStrike");
         Collider2D hitPlayer = Physics2D.OverlapCircle(attackPoint.position, attackRange,playerLayer);
         if (hitPlayer == null)
             return;
@@ -147,6 +158,7 @@ public class EnemyScript : MonoBehaviour
         }
 
 
+
     }
 
     void OnDrawGizmosSelected()
@@ -154,12 +166,6 @@ public class EnemyScript : MonoBehaviour
         if (attackPoint == null)
             return;
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-    }
-
-    IEnumerator Cooldown(float cooldown)
-    {
-        yield return new WaitForSeconds(cooldown);
-        attackPlayer();
     }
 
 }

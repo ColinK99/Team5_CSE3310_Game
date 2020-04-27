@@ -9,15 +9,13 @@ public class PlayerHurt : MonoBehaviour
     Respawn spawnPoint;
     AutoRespawn tempPoint;
     public int fallDamage = 5;
-    private Rigidbody2D body;
     public GameObject enemy;
     public GameObject Damage;
     private SpriteRenderer sprite;
 
     // Update is called once per frame
     void Start()
-    {
-        body = GetComponent<Rigidbody2D>();
+    { 
         playerScript = GetComponent<PlayerStats>();
         spawnPoint = GameObject.FindWithTag("Respawn").GetComponent<Respawn>();
         tempPoint = GameObject.FindWithTag("AutoRespawn").GetComponent<AutoRespawn>();
@@ -45,14 +43,14 @@ public class PlayerHurt : MonoBehaviour
     public void playerHit(int attack)
     {
         // Health change is determined by protected values within PlayerStats
-
+       
         if (playerZero(playerScript.modifyHealth(attack)))
         {
             PlayerLose();
         }
         else
         {
-
+            SoundManager.PlaySound("playerHurt");
             sprite.color = Color.red;
             StartCoroutine(Invincible());
 
@@ -60,10 +58,7 @@ public class PlayerHurt : MonoBehaviour
     }
     void PlayerLose()
     {
-        //Play Defeat animation
-        //   GetComponent<Renderer>().enabled = false; //Make player disappear when they "die"
 
-        // Display GameOver Screen
         GameOverMainMenu();
 
     }
@@ -79,26 +74,22 @@ public class PlayerHurt : MonoBehaviour
             return false;
         }
     }
-
-
     IEnumerator Invincible()
     {
         playerScript.Invincible = true;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         sprite.color = Color.white;
         playerScript.Invincible = false;
         
     }
+
     public void GameOverMainMenu()
     {
+        SoundManager.PlaySound("playerLose");
         SceneManager.LoadScene("Game Over", LoadSceneMode.Single);
 
         spawnPoint.Spawn(); // Respawn invisible player back to the beginning
         playerScript.resetHealth();// Reset their health
-    }
-    public void PlayGame()
-    {
-        SceneManager.LoadScene("Main Scene", LoadSceneMode.Single);
     }
 
 }

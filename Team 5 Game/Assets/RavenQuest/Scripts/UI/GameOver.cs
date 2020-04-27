@@ -5,13 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
+    public void GameOverMainMenu()
+    {
+        SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
+
+
+    }
     public void PlayGame()
     {
         SceneManager.LoadScene("Main Scene", LoadSceneMode.Single);
     }
 
-    public void GameOverMainMenu()
-    {
-        SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
-    }
 }
