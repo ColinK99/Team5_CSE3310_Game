@@ -28,7 +28,7 @@ public class EnemyScript : MonoBehaviour
     //This will be used to set the color of the enemy to red when health is low
     private SpriteRenderer bar;
     //Thisd will be used to set animation booleans
-    public Animator anim;
+    private Animator anim;
     public float attackRange;
     private PlayerStats playerHealth;
     private PlayerHurt hurt;
@@ -49,6 +49,7 @@ public class EnemyScript : MonoBehaviour
         health = enemy.modifyHealth();
         hurt = GameObject.FindWithTag("Player").GetComponent<PlayerHurt>();
         cooldownTime = enemy.cooldown;
+        anim = GetComponent<Animator>();
  
 
     }
@@ -73,15 +74,12 @@ public class EnemyScript : MonoBehaviour
         {
             rb2d.velocity = new Vector2(0, 0);
             anim.SetBool("canWalk", false);
-            if (cooldownTime > 0)
-            {
-                cooldownTime -= Time.deltaTime;
-            }
-            else if (cooldownTime <= 0)
-            {
+           if(Time.frameCount>=cooldownTime)
+            { 
                 anim.SetBool("Attack", true);
+                Debug.Log("Attacking player");
                 attackPlayer();
-                cooldownTime = enemy.cooldown;
+              
             }
 
 
@@ -107,11 +105,6 @@ public class EnemyScript : MonoBehaviour
         }
 
         //if the enemy health drops to 0 or below then it will be destroyed
-        if (health <= 0)
-        {
-            Instantiate(drop, transform.position, drop.transform.rotation);
-            Destroy(gameObject);
-        }
 
 
     }
@@ -120,10 +113,14 @@ public class EnemyScript : MonoBehaviour
     //This function will determine if the enemy has been hit by an attack
     public void enemyHit(int playerDamage)
     {
-        SoundManager.PlaySound("enemyHit");
+        Debug.Log(this.name + "hit for" + playerDamage);
         health=enemy.modifyHealth(playerDamage);
-        
-       
+        if(health<=0)
+        {
+            Instantiate(drop, transform.position, drop.transform.rotation);
+            Destroy(this.gameObject);
+        }
+          
     }
 
     //This is fucntion that will set the movement speed of the enemy if the player is within range 
@@ -134,20 +131,22 @@ public class EnemyScript : MonoBehaviour
         if (transform.position.x < player.position.x)
         {
             rb2d.velocity = new Vector2(enemy.moveSpeed, 0);
-            transform.localScale = new Vector2(3, 3);
+            transform.localScale = new Vector2(1, 1);
         }
         //Else the player is to the left so the enemy movement should be negative
         //and the sprite should be flipped to face the left
         else
         {
             rb2d.velocity = new Vector2(enemy.moveSpeed*-1, 0);
-            transform.localScale = new Vector2(-3, 3);
+            transform.localScale = new Vector2(-1, 1);
         }
     }
 
+
     void attackPlayer()
     {
-        SoundManager.PlaySound("enemyStrike");
+
+        Debug.Log("Damage Done" + enemy.attack);
         Collider2D hitPlayer = Physics2D.OverlapCircle(attackPoint.position, attackRange,playerLayer);
         if (hitPlayer == null)
             return;

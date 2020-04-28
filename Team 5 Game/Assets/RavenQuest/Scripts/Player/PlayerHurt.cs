@@ -6,18 +6,18 @@ using UnityEngine.SceneManagement;
 public class PlayerHurt : MonoBehaviour
 {
     PlayerStats playerScript;
-    Respawn spawnPoint;
     AutoRespawn tempPoint;
     public int fallDamage = 5;
-    public GameObject enemy;
+    private Respawn spawnPoint;
     public GameObject Damage;
     private SpriteRenderer sprite;
 
     // Update is called once per frame
     void Start()
-    { 
-        playerScript = GetComponent<PlayerStats>();
+    {
+        this.gameObject.SetActive(true);
         spawnPoint = GameObject.FindWithTag("Respawn").GetComponent<Respawn>();
+        playerScript = GetComponent<PlayerStats>();
         tempPoint = GameObject.FindWithTag("AutoRespawn").GetComponent<AutoRespawn>();
         sprite = GetComponent<SpriteRenderer>();
 
@@ -85,11 +85,11 @@ public class PlayerHurt : MonoBehaviour
 
     public void GameOverMainMenu()
     {
-        SoundManager.PlaySound("playerLose");
         SceneManager.LoadScene("Game Over", LoadSceneMode.Single);
-
+        this.gameObject.SetActive(false);
         spawnPoint.Spawn(); // Respawn invisible player back to the beginning
         playerScript.resetHealth();// Reset their health
+                                   //  SoundManager.PlaySound("playerLose");
     }
 
 }

@@ -12,7 +12,7 @@ public class EnemyStats : MonoBehaviour
     public float stopRange = 0.4f;
     public float attackRange = 0.3f;
     public float moveSpeed = 0.5f;
-    public float cooldown = 2f;
+    public float cooldown = 1;
     // Start is called before the first frame update
     void Start()
     {

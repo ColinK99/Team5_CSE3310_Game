@@ -8,7 +8,7 @@ public class ButtonJump : MonoBehaviour
     private Rigidbody2D playerBody;
     private Transform playerPos;
     private Collider2D playerFeet;
-   // public Animator jump;
+    public LayerMask enemy;
     public LayerMask platform;
     public float touchDistance;
     private float groundDist;
@@ -39,8 +39,18 @@ public class ButtonJump : MonoBehaviour
 
    bool isGrounded()
     {
-        //jump.SetTrigger("Jump");
-        return Physics2D.Raycast(playerPos.position, -Vector2.up, groundDist + touchDistance,platform);
+        if (Physics2D.Raycast(playerPos.position, -Vector2.up, groundDist + touchDistance, platform))
+        {
+            return true;
+        }
+        else if(Physics2D.Raycast(playerPos.position, -Vector2.up, groundDist + touchDistance, enemy))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
         // Cast a ray downwards from the players center, if it hits any collider. within a distance of 0.1 then the player is grounded
     }
 

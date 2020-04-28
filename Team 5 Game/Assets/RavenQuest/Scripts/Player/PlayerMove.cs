@@ -8,7 +8,6 @@ public class PlayerMove : MonoBehaviour
 
     private Rigidbody2D body;
     private FixedJoystick moveStick;
-    public Collider2D enemyBox;
     PlayerStats player;
     private Animator anim;
     private Vector2 startPoint;
@@ -28,7 +27,14 @@ public class PlayerMove : MonoBehaviour
     {
         Vector2 characterPos = transform.localScale;
         body.velocity = new Vector2(moveStick.Horizontal * player.speed, body.velocity.y);
-
+        if (moveStick.Horizontal == 0)
+        { 
+            anim.SetBool("running", false);
+        }
+        else
+        {
+            anim.SetBool("running", true);
+        }
       if (moveStick.Horizontal < 0)
       {
           characterPos.x = -1;
@@ -39,7 +45,7 @@ public class PlayerMove : MonoBehaviour
       }
 
         transform.localScale = characterPos;
-
+        
 
     }
 

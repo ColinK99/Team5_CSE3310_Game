@@ -50,3 +50,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Overworld
+    uniqueID: 4289489765
+    locked: 0

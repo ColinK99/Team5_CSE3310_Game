@@ -8,10 +8,10 @@ public class ButtonStrike : MonoBehaviour
    // public Animator strike;
     public Transform attackPoint;
     public LayerMask enemyLayers;
-    private EnemyScript enemyHurt;
     private PlayerStats stats;
     public float attackRange;
     private float cooldownTime;
+    private Animator anim;
 
 
 
@@ -20,7 +20,7 @@ public class ButtonStrike : MonoBehaviour
     {
         cooldownTime = 0;
         stats = GetComponent<PlayerStats>();
-        enemyHurt = GameObject.FindWithTag("Enemy").GetComponent<EnemyScript>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -36,6 +36,7 @@ public class ButtonStrike : MonoBehaviour
     {
         if (cooldownTime <=0)
         {
+            anim.SetTrigger("attacking");
             cooldownTime = stats.cooldown;
             Attack();
         }
@@ -49,11 +50,12 @@ public class ButtonStrike : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            enemyHurt.enemyHit(stats.attack);
+            enemy.GetComponent<EnemyScript>().enemyHit(stats.attack);
 
         }
 
         SoundManager.PlaySound("playerStrike");
+       // anim.SetBool("attacking", false);
       
     }
 

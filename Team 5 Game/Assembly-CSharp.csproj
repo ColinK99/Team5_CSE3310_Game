@@ -71,6 +71,7 @@
      <Compile Include="Assets\RavenQuest\Scripts\Environment\healthPotion.cs" />
      <Compile Include="Assets\RavenQuest\Scripts\Menu\BackMain.cs" />
      <Compile Include="Assets\RavenQuest\Scripts\Menu\MainMenu.cs" />
+     <Compile Include="Assets\RavenQuest\Scripts\Menu\Victory.cs" />
      <Compile Include="Assets\RavenQuest\Scripts\Player\ButtonJump.cs" />
      <Compile Include="Assets\RavenQuest\Scripts\Player\ButtonStrike.cs" />
      <Compile Include="Assets\RavenQuest\Scripts\Player\GravityCheck.cs" />

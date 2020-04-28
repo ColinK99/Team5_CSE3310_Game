@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public static AudioClip playerStrike, playerHurt, enemyHit, playerJump, enemyStrike, playerLose, healthGiven;
+    public static AudioClip playerStrike, playerHurt, enemyHit, playerJump, playerLose, healthGiven;
     static AudioSource src;
 
     // Start is called before the first frame update
@@ -12,7 +12,6 @@ public class SoundManager : MonoBehaviour
     void Start()
     {
         playerStrike = Resources.Load<AudioClip>("playerStrike");
-        enemyStrike = Resources.Load<AudioClip>("enemyStrike");
         playerHurt = Resources.Load<AudioClip>("playerHurt");
         enemyHit = Resources.Load<AudioClip>("enemyHit");
         playerJump = Resources.Load<AudioClip>("playerJump");
@@ -33,9 +32,6 @@ public class SoundManager : MonoBehaviour
             case "playerHurt":
                 src.PlayOneShot(playerHurt);
                 break;
-            case "enemyStrike":
-                src.PlayOneShot(enemyStrike);
-                break;
             case "healthGiven":
                 src.PlayOneShot(healthGiven);
                 break;
@@ -49,9 +45,9 @@ public class SoundManager : MonoBehaviour
             case "playerJump":
                 src.PlayOneShot(playerJump);
                 break;
-            case "playerLose":
-                src.PlayOneShot(playerLose);
-                break;
+           // case "playerLose":
+             //   src.PlayOneShot(playerLose);
+               // break;
         }
     }
 

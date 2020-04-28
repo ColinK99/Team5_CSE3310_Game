@@ -21,8 +21,5 @@ public class HealthBar : MonoBehaviour
     {
         slider.value = health;
     }
-    void healthNum()
-    {
-        // TO DO: Implement changing num values for health.
-    }
+
 }
