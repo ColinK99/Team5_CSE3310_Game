@@ -80,6 +80,7 @@
      <Compile Include="Assets\RavenQuest\Scripts\Player\PlayerStats.cs" />
      <Compile Include="Assets\RavenQuest\Scripts\UI\GameOver.cs" />
      <Compile Include="Assets\RavenQuest\Scripts\UI\HealthBar.cs" />
+     <Compile Include="Assets\RavenQuest\Scripts\UI\MasterVol.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/Colin Kirchenbauer/Documents/Team5_Project/Team5_CSE3310_Game/Team 5 Game/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>

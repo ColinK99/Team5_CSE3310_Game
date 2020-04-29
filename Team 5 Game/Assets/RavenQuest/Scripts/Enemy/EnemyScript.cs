@@ -77,7 +77,6 @@ public class EnemyScript : MonoBehaviour
            if(Time.frameCount>=cooldownTime)
             { 
                 anim.SetBool("Attack", true);
-                Debug.Log("Attacking player");
                 attackPlayer();
               
             }
@@ -113,7 +112,7 @@ public class EnemyScript : MonoBehaviour
     //This function will determine if the enemy has been hit by an attack
     public void enemyHit(int playerDamage)
     {
-        Debug.Log(this.name + "hit for" + playerDamage);
+       
         health=enemy.modifyHealth(playerDamage);
         if(health<=0)
         {
@@ -146,7 +145,7 @@ public class EnemyScript : MonoBehaviour
     void attackPlayer()
     {
 
-        Debug.Log("Damage Done" + enemy.attack);
+        
         Collider2D hitPlayer = Physics2D.OverlapCircle(attackPoint.position, attackRange,playerLayer);
         if (hitPlayer == null)
             return;
