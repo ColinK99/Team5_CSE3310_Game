@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Pause_Game : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Pause_Game : MonoBehaviour
     public Button jumpButton;
     public Button strikeButton;
     public GameObject move;
+    public GameObject quitText;
     // Start is called before the first frame update
     public void Resume()
     {
@@ -16,6 +18,7 @@ public class Pause_Game : MonoBehaviour
         this.gameObject.SetActive(false);
         jumpButton.enabled = true;
         strikeButton.enabled = true;
+        quitText.SetActive(false);
         move.GetComponent<FixedJoystick>().enabled = true;
         otherButton.SetActive(true);
     }
@@ -27,7 +30,14 @@ public class Pause_Game : MonoBehaviour
         this.gameObject.SetActive(false);
         jumpButton.enabled = false;
         strikeButton.enabled = false;
+        quitText.SetActive(true);
         move.GetComponent<FixedJoystick>().enabled = false;
         otherButton.SetActive(true);
+    }
+
+    public void Quit()
+    {
+        Resume();
+        SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
     }
 }
