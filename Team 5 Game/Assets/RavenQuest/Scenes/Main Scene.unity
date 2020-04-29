@@ -4006,6 +4006,11 @@ PrefabInstance:
       propertyPath: axisOptions
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2929252285020697096, guid: aaa2c939c0359ac4dbce3f49e8b90252,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -40107,7 +40112,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.000030517578}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1016499029
@@ -40213,6 +40218,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherButton: {fileID: 1035824902}
+  jumpButton: {fileID: 1217561073}
+  strikeButton: {fileID: 130146087}
+  move: {fileID: 1672998275}
 --- !u!1 &1027893690
 GameObject:
   m_ObjectHideFlags: 0
@@ -40536,6 +40544,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherButton: {fileID: 1016499027}
+  jumpButton: {fileID: 1217561073}
+  strikeButton: {fileID: 130146087}
+  move: {fileID: 1672998275}
 --- !u!1 &1036648092
 GameObject:
   m_ObjectHideFlags: 0
@@ -46211,6 +46222,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1672998275 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2929252283123773939, guid: aaa2c939c0359ac4dbce3f49e8b90252,
+    type: 3}
+  m_PrefabInstance: {fileID: 384013716}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1675013330
 GameObject:
   m_ObjectHideFlags: 0
